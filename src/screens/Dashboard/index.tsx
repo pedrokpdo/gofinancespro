@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { HighlightCard } from "../../components/HighlightCard";
-import { Container, Header, Icon, Photo, User, UserContainer, UserGreeting, UserInfo, UserName } from './styles'
+import { Container, Header, HighlightCards, Icon, Photo, User, UserContainer, UserGreeting, UserInfo, UserName } from './styles'
 export function Dashboard() {
     return (
         <Container>
@@ -16,10 +16,14 @@ export function Dashboard() {
                             <UserName>Pedro</UserName>
                         </User>
                     </UserInfo >
-                    <Icon name='power'/>
+                    <Icon name='power' />
                 </UserContainer>
             </Header>
-            <HighlightCard/>
+            <HighlightCards>
+                <HighlightCard />
+                <HighlightCard />
+                <HighlightCard />
+            </HighlightCards>
         </Container>
     )
 }
