@@ -7,30 +7,33 @@ export function Dashboard() {
 
     const data = [
         {
+            type: 'positive',
             date: "13/04/2022",
             title: "Desenvolvimente de site",
-            amount: "12.000,00",
+            amount: "RS 12.000,00",
             category: {
-                name: 'vendas',
-                icon: 'dolar-sign'
+                name: 'Vendas',
+                icon: 'dollar-sign'
             }
         },
         {
+            type: 'negative',
             date: "13/04/2022",
-            title: "Desenvolvimente de site",
-            amount: "12.000,00",
+            title: "Hamburgueria Pizza",
+            amount: "R$ 59,00",
             category: {
-                name: 'vendas',
-                icon: 'dolar-sign'
+                name: 'Alimentaçao',
+                icon: 'coffee'
             }
         },
         {
+            type: 'negative',
             date: "13/04/2022",
             title: "Desenvolvimente de site",
-            amount: "12.000,00",
+            amount: "R$ 1.200,00",
             category: {
-                name: 'vendas',
-                icon: 'dolar-sign'
+                name: 'Casa',
+                icon: 'shopping-bag'
             }
         },
         
