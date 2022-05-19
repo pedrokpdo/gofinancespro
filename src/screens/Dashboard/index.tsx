@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Container, Header, Photo, User, UserContainer, UserGreeting, UserInfo, UserName } from './styles'
-
+import { Container, Header, Icon, Photo, User, UserContainer, UserGreeting, UserInfo, UserName } from './styles'
 export function Dashboard() {
     return (
         <Container>
@@ -10,14 +9,13 @@ export function Dashboard() {
                     <UserInfo>
                         <Photo
                             source={{ uri: 'https://avatars.githubusercontent.com/u/100696926?v=4' }}
-
                         />
                         <User>
                             <UserGreeting>Olá</UserGreeting>
                             <UserName>Pedro</UserName>
                         </User>
-
                     </UserInfo >
+                    <Icon name='power'/>
                 </UserContainer>
             </Header>
         </Container>
