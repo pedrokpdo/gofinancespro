@@ -16,7 +16,7 @@ export const Container = styled(TouchableOpacity) <ContainerProps>`
     width: 48%;
     flex-direction: row;
     align-items: center;
-    border-width:  ${({ isActive }) => isActive ? 0 : 1.5};
+    border-width:  ${({ isActive }) => isActive ? 0 : 1.5}px;
     border-style: solid; 
     border-color: ${({ theme }) => theme.colors.text};
     border-radius: 5px;
