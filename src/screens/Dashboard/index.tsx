@@ -11,18 +11,37 @@ export interface DataListProps extends TransactionCardProps {
     id: string;
 }
 
+interface HighLightProps {
+    amount: string;
+}
+interface HighLightData {
+    entries: HighLightProps;
+    expensives: HighLightProps;
+
+}
+
 
 
 export function Dashboard() {
-    const [data, setData] = useState<DataListProps[]>([])
+    const [transactions, setTransactions] = useState<DataListProps[]>([])
+    const [highLightData, setHighLightData] = useState<HighLightData>({} as HighLightData)
 
     async function loadTransactions() {
         const dataKey = '@gofinancespro:transactions'
         const response = await AsyncStorage.getItem(dataKey)
-
         const transactions = response ? JSON.parse(response) : []
 
-        const transactionsFormatted: DataListProps[] = transactions.map((item:DataListProps) => {
+        let entrieuTotal = 0;
+        let expenseveTotal = 0;
+
+        const transactionsFormatted: DataListProps[] = transactions.map((item: DataListProps) => {
+
+            if (item.type === 'positive') {
+                entrieuTotal += Number(item.amount)
+            } else {
+                expenseveTotal += Number(item.amount)
+            }
+
             const amount = Number(item.amount).toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
@@ -35,19 +54,40 @@ export function Dashboard() {
             return {
                 id: item.id,
                 name: item.name,
-                amount, 
+                amount,
                 type: item.type,
                 category: item.category,
                 date,
             }
         })
-        setData(transactionsFormatted)
+        setTransactions(transactionsFormatted)
+        const total = entrieuTotal - expenseveTotal
+        setHighLightData({
+            entries: {
+                amount: entrieuTotal.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                })
+            },
+            expensives: {
+                amount: expenseveTotal.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                })
+            },
+            total: {
+                amount: total.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                })
+            }
+        })
 
     }
 
     useEffect(() => {
         loadTransactions()
-        /*Clear Storage */  
+        /*Clear Storage */
 
         /*const dataKey = '@gofinancespro:transactions'
         AsyncStorage.removeItem(dataKey) */
@@ -56,7 +96,7 @@ export function Dashboard() {
 
     useFocusEffect(useCallback(() => {
         loadTransactions()
-    },[]))
+    }, []))
 
     return (
         <Container>
@@ -80,19 +120,19 @@ export function Dashboard() {
                 <HighlightCard
                     type='up'
                     title='Entradas'
-                    amount="R$ 17.400,00"
+                    amount={highLightData.entries.amount}
                     lastTransaction="Última entrada dia 13 de abril"
                 />
                 <HighlightCard
                     type='down'
                     title='Saidas'
-                    amount="R$ 1.259,00"
+                    amount={highLightData.expensives.amount}
                     lastTransaction="Última saida dia 03 de abril"
                 />
                 <HighlightCard
                     type='total'
                     title='Total'
-                    amount="R$ 16.141,00"
+                    amount={highLightData.total.amount}
                     lastTransaction="Última entrada dia 13 de abril"
                 />
 
@@ -100,7 +140,7 @@ export function Dashboard() {
             <Transactions>
                 <Title>Listagem</Title>
                 <TransactionList
-                    data={data}
+                    data={transactions}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => <TransactionCard data={item} />}
                 />
