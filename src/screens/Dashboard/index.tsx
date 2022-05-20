@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, TransactionCardProps } from "../../components/TransactionCard";
 import { Container, Header, HighlightCards, Icon, LogoutButton, Photo, Title, TransactionList, Transactions, User, UserContainer, UserGreeting, UserInfo, UserName } from './styles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 
 
 export interface DataListProps extends TransactionCardProps {
@@ -46,7 +47,16 @@ export function Dashboard() {
 
     useEffect(() => {
         loadTransactions()
+        /*Clear Storage */  
+
+        /*const dataKey = '@gofinancespro:transactions'
+        AsyncStorage.removeItem(dataKey) */
+
     }, [])
+
+    useFocusEffect(useCallback(() => {
+        loadTransactions()
+    },[]))
 
     return (
         <Container>

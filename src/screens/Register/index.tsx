@@ -37,7 +37,7 @@ export function Register() {
     })
 
     
-    function handleTransactionButtonSelect(type: string) {
+    function handleTransactionButtonSelect(type: 'positive' | 'negative') {
         setTransactionType(type)
     }
     
@@ -60,7 +60,7 @@ export function Register() {
             id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
-            transactionType,
+            type: transactionType,
             category: category.key,
             date: new Date()
         }
@@ -114,14 +114,14 @@ export function Register() {
                         />
                         <TransactionsTypes>
                             <TransactionButton
-                                isActive={transactionType === 'up'}
-                                onPress={() => handleTransactionButtonSelect('up')}
+                                isActive={transactionType === 'positive'}
+                                onPress={() => handleTransactionButtonSelect('positive')}
                                 type='up'
                                 title='income'
                             />
                             <TransactionButton
-                                isActive={transactionType === 'down'}
-                                onPress={() => handleTransactionButtonSelect('down')}
+                                isActive={transactionType === 'negative'}
+                                onPress={() => handleTransactionButtonSelect('negative')}
                                 type='down'
                                 title='outcome'
                             />
