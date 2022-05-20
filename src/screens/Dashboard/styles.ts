@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
 import { DataListProps } from ".";
-import { FlatList, FlatListProps } from "react-native";
+import { FlatList, FlatListProps, TouchableOpacity } from "react-native";
 
 
 export const Container = styled.View`
@@ -49,6 +49,10 @@ export const UserName = styled.Text`
     color: ${({theme})=>theme.colors.shape};
     font-size: ${RFValue(18)}px;
     font-weight: bold;
+`
+
+export const LogoutButton = styled(TouchableOpacity)`
+    
 `
 
 export const Icon = styled(Feather)`
