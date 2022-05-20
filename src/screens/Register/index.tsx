@@ -5,7 +5,13 @@ import { CategorySelect as CategorySelectButton } from "../../components/Forms/C
 import { Input } from "../../components/Forms/Input";
 import { TransactionButton } from "../../components/Forms/TransactionButton";
 import { Container, Fields, Form, Header, Title, TransactionsTypes } from "./styles";
-import {CategorySelect} from '../CategorySelect'
+import { CategorySelect } from '../CategorySelect'
+import { InputForm } from "../../components/Forms/InputForm";
+import { useForm } from "react-hook-form";
+
+export interface FormData {
+    [name: string]: string;
+  }
 
 export function Register() {
     const [category, setCategory] = useState({
@@ -13,7 +19,21 @@ export function Register() {
         name: 'Categoria',
     })
     const [transactionType, setTransactionType] = useState('')
-    const [ categoryModalOpen, setCategoryModalOpen ] = useState(false)
+    const [categoryModalOpen, setCategoryModalOpen] = useState(false)
+
+    const { control, handleSubmit } = useForm()
+
+    function handleRegister(form:FormData) {
+        const data = {
+            name: form.name,
+            amount: form.amount,
+            transactionType,
+            category: category.key
+        }
+
+        console.log(data);
+
+    }
 
     function handleTransactionButtonSelect(type: string) {
         setTransactionType(type)
@@ -33,11 +53,15 @@ export function Register() {
             </Header>
             <Form>
                 <Fields>
-                    <Input
+                    <InputForm
+                        control={control}
+                        name='name'
                         placeholder="Nome"
                     />
-                    <Input
+                    <InputForm
+                        control={control}
                         placeholder="Preço"
+                        name='amount'
                     />
                     <TransactionsTypes>
                         <TransactionButton
@@ -54,11 +78,14 @@ export function Register() {
                         />
                     </TransactionsTypes>
 
-                    <CategorySelectButton 
-                    onPress={handleOpenSelectCategoryModal}
-                    title={category.name}/>
+                    <CategorySelectButton
+                        onPress={handleOpenSelectCategoryModal}
+                        title={category.name} />
                 </Fields>
-                <Button title='Enviar' />
+                <Button
+                    title='Enviar'
+                    onPress={handleSubmit(handleRegister)}
+                />
             </Form>
             <Modal visible={categoryModalOpen}>
                 <CategorySelect
