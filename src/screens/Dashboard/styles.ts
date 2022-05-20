@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const Header = styled.View`
     width: 100%;
     background-color: ${({theme}) => theme.colors.primary};
-    height: ${RFPercentage(42)};
+    height: ${RFPercentage(42)}px;
     justify-content: center;
     align-items: flex-start;
     flex-direction: row;
@@ -52,7 +52,7 @@ export const UserName = styled.Text`
 `
 
 export const LogoutButton = styled(TouchableOpacity)`
-    
+
 `
 
 export const Icon = styled(Feather)`

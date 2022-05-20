@@ -36,7 +36,7 @@ const data: DataListProps[] = [
         id: '3',
         type: 'negative',
         date: "13/04/2022",
-        title: "Desenvolvimente de site",
+        title: "Aluguel",
         amount: "R$ 1.200,00",
         category: {
             name: 'Casa',
