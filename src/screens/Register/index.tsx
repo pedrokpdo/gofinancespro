@@ -24,7 +24,6 @@ const schema = Yup.object().shape({
 })
 
 export function Register() {
-    const collectionKey = '@gofinancespro:transactions'
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
@@ -37,13 +36,26 @@ export function Register() {
         resolver: yupResolver(schema)
     })
 
+    
+    function handleTransactionButtonSelect(type: string) {
+        setTransactionType(type)
+    }
+    
+    function handleOpenSelectCategoryModal() {
+        setCategoryModalOpen(true)
+    }
+    function handleCloseSelectCategoryModal() {
+        setCategoryModalOpen(false)
+    }
+    
     async function handleRegister(form: FormData) {
+        
         if (!transactionType)
-            return Alert.alert('Selecione o tipo da transaçao')
-
+        return Alert.alert('Selecione o tipo da transaçao')
+        
         if (category.key === 'category')
-            return Alert.alert('Selecione a categoria')
-
+        return Alert.alert('Selecione a categoria')
+        
         const newTransaction = {
             id: String(uuid.v4()),
             name: form.name,
@@ -54,11 +66,12 @@ export function Register() {
         }
 
         try {
-            const data = await AsyncStorage.getItem(collectionKey)
+            const dataKey = '@gofinancespro:transactions'
+            const data = await AsyncStorage.getItem(dataKey)
             const currentData = data ? JSON.parse(data) : []
             const dataFormatted = [...currentData, newTransaction]
 
-            await AsyncStorage.setItem(collectionKey, JSON.stringify(dataFormatted))
+            await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
             reset()
             setTransactionType('')
             setCategory({
@@ -73,18 +86,6 @@ export function Register() {
         }
 
     }
-
-    function handleTransactionButtonSelect(type: string) {
-        setTransactionType(type)
-    }
-
-    function handleOpenSelectCategoryModal() {
-        setCategoryModalOpen(true)
-    }
-    function handleCloseSelectCategoryModal() {
-        setCategoryModalOpen(false)
-    }
-
 
 
     return (

@@ -9,6 +9,8 @@ import AppLoading from 'expo-app-loading'
 import { CategorySelect } from './src/screens/CategorySelect';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes'
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
