@@ -11,6 +11,7 @@ import { AppRoutes } from './src/routes/app.routes'
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import { SignIn } from './src/screens/SignIn';
+import { AuthContext } from './src/AuthContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,8 +26,10 @@ export default function App() {
 
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-      <StatusBar barStyle='light-content'/>
-        <SignIn />
+        <StatusBar barStyle='light-content' />
+        <AuthContext.Provider value={[]}>
+          <SignIn />
+        </AuthContext.Provider>
       </NavigationContainer>
     </ThemeProvider>
   );
