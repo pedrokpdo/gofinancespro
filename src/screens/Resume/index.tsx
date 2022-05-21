@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { HistoryCard } from "../../components/HistoryCard";
-import { ChartContainer, Container, Content, Header, Title } from "./styles";
+import { ChartContainer, Container, Content, Header, Month, MonthSelect, MonthSelectButton, MonthSelectIcon, Title } from "./styles";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TransactionCardProps } from "../../components/TransactionCard";
 import { categories } from "../../utils/categories";
 import { VictoryPie } from 'victory-native'
 import { RFValue } from "react-native-responsive-fontsize";
-import { useTheme} from 'styled-components'
+import { useTheme } from 'styled-components'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 interface Props {
     type: 'positive' | 'negative';
@@ -38,10 +39,10 @@ export function Resume() {
         const expensives = responseFormatted
             .filter((expensive: Props) => expensive.type === 'negative')
 
-            const expensivesTotal = expensives.reduce((acumulator:number, expensive:Props) => {
-                return acumulator + Number(expensive.amount)
-            }, 0)
-            
+        const expensivesTotal = expensives.reduce((acumulator: number, expensive: Props) => {
+            return acumulator + Number(expensive.amount)
+        }, 0)
+
 
         const totalByCategory: CategoryData[] = []
 
@@ -81,7 +82,22 @@ export function Resume() {
             <Header>
                 <Title>Resumo por Categoria</Title>
             </Header>
-            <Content>
+            <Content
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingHorizontal: 24,
+                    paddingBottom: useBottomTabBarHeight(),
+                }}
+            >
+                <MonthSelect>
+                    <MonthSelectButton>
+                        <MonthSelectIcon name='chevron-left'/>
+                    </MonthSelectButton>
+                    <Month>Maio</Month>
+                    <MonthSelectButton>
+                        <MonthSelectIcon name='chevron-right'/>
+                    </MonthSelectButton>
+                </MonthSelect>
                 <ChartContainer>
                     <VictoryPie
                         data={totalByCategories}
