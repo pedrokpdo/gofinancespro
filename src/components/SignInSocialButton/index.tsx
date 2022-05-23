@@ -7,22 +7,14 @@ import { Button, ImgageContainer, Text } from "./styles";
 interface Props {
     title: string;
     svg: React.FC<SvgProps>;
+    press: () => void;
 }
 
-export function SignInSocialButton({ title, svg: Svg }: Props) {
+export function SignInSocialButton({ title, svg: Svg, press }: Props) {
 
-    const { signInWithGoogle } = useAuth();
-
-    async function handleSignInWithGoogle() {
-        try {
-            await signInWithGoogle()
-        } catch (error) {
-            console.log(error);
-            Alert.alert('Nao foi possivel conectar a conta google')
-        }
-    }
+  
     return (
-        <Button onPress={handleSignInWithGoogle}>
+        <Button onPress={press}>
             <ImgageContainer>
                 <Svg />
             </ImgageContainer>

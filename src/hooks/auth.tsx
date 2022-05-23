@@ -27,11 +27,11 @@ interface User {
 
 interface AuthContextData {
     user: User;
-    signInWithGoogle(): Promise<void>
+    signInWithGoogle(): Promise<void>;
 
 }
 
-export const AuthContext = createContext({})
+export const AuthContext = createContext({} as AuthContextData)
 
 function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User>({} as User)
@@ -51,7 +51,7 @@ function AuthProvider({ children }: AuthProviderProps) {
                 setUser({
                     id: userInfo.id,
                     email: userInfo.email,
-                    name: userInfo.give_name,
+                    name: userInfo.given_name,
                     photo: userInfo.picture
                 })
                 console.log(user);
@@ -63,6 +63,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         }
     }
+    
     return (
         <AuthContext.Provider value={{ user, signInWithGoogle }}>
             {children}

@@ -10,15 +10,24 @@ import { useAuth } from '../../hooks/auth'
 
 export function SignIn() {
 
- 
+    const { signInWithGoogle } = useAuth();
+
+    async function handleSignInWithGoogle() {
+        try {
+            await signInWithGoogle()
+        } catch (error) {
+            console.log(error);
+            Alert.alert('Nao foi possivel conectar a conta google')
+        }
+    }
 
     return (
         <Container>
             <Header>
                 <TitleWrapper>
                     <LogoSvg
-                     width={RFValue(120)}
-                     height={RFValue(68)}
+                        width={RFValue(120)}
+                        height={RFValue(68)}
                     />
                     <Title>
                         Controle suas {'\n'}
@@ -36,12 +45,14 @@ export function SignIn() {
                     <SignInSocialButton
                         title="Entrar com Google"
                         svg={GoogleSvg}
+                        press={handleSignInWithGoogle}
                     />
                     <TouchableOpacity>
                         <SignInSocialButton
-                        title="Entrar com Apple"
-                        svg={AppleSvg}
-                    />
+                            title="Entrar com Apple"
+                            svg={AppleSvg}
+                            press={handleSignInWithGoogle}
+                        />
                     </TouchableOpacity>
                 </FooterWrapper>
             </Footer>
