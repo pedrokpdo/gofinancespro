@@ -13,6 +13,8 @@ import 'intl/locale-data/jsonp/pt-BR';
 import { SignIn } from './src/screens/SignIn';
 import { AuthProvider } from './src/hooks/auth';
 
+const a = 'b'
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
